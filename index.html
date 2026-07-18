@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Максим Лисевский — AI-разработчик</title>
+<meta name="description" content="AI-разработчик: сайты, Telegram-боты, AI-системы, автоматизация. От первого созвона до запуска — рабочий продукт за 1–5 дней."/>
+<meta name="theme-color" content="#0a0a0a"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="Максим Лисевский — AI-разработчик"/>
+<meta property="og:description" content="Сайты, Telegram-боты, AI-системы, автоматизация. Приносите задачу — через пару дней рабочий продукт."/>
+<meta property="og:locale" content="ru_RU"/>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg transform='rotate(180 12 12)' fill='%23c9cdd5'%3E%3Cpath d='M13.5 3 L21 3 L13.5 21 L11.6 16.6 Z'/%3E%3Cpath d='M3.5 3 L6.8 3 L12.4 19 L10.4 20.6 Z'/%3E%3Cpath d='M2.56 3.33 L7.73 16.53 L6.93 16.81 L1.76 3.61 Z'/%3E%3C/g%3E%3C/svg%3E"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+  html,body{margin:0;background:#000;color:#fff;font-family:'Inter',sans-serif}
+  .liquid-glass{background:rgba(255,255,255,0.02);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);box-shadow:inset 0 1px 1px rgba(255,255,255,0.1);position:relative;overflow:hidden}
+  .liquid-glass::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1.4px;background:linear-gradient(180deg,rgba(255,255,255,0.45),rgba(255,255,255,0.15) 20%,rgba(255,255,255,0) 40%,rgba(255,255,255,0) 60%,rgba(255,255,255,0.15) 80%,rgba(255,255,255,0.45));-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+  @keyframes bfu{from{opacity:0;filter:blur(18px);transform:translateY(34px)}to{opacity:1;filter:blur(0);transform:translateY(0)}}
+  .bfu{opacity:0;animation:bfu 1s ease-out forwards}
+  .tsh{text-shadow:0 1px 12px rgba(0,0,0,.5)}
+  /* cards */
+  .stage-card{transition:transform .5s;background:rgba(14,10,15,0.96);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:0 18px 46px rgba(0,0,0,0.55)}
+  .stage-card:hover{transform:scale(1.02)}
+  .card-u{transition:all .5s;background:rgba(16,12,18,0.55);-webkit-backdrop-filter:blur(11px);backdrop-filter:blur(11px);box-shadow:0 18px 44px rgba(0,0,0,0.4);position:relative;overflow:hidden}
+  .card-u::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1.4px;background:linear-gradient(180deg,rgba(255,255,255,0.4),rgba(255,255,255,0.12) 30%,rgba(255,255,255,0) 60%,rgba(255,255,255,0.4));-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+  .card-u:hover{transform:scale(1.02)}
+  .chip{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(255,255,255,0.16);border-radius:9999px;padding:4px 11px;font-size:12px;line-height:1.6;color:rgba(255,255,255,0.82);white-space:nowrap;transition:border-color .25s,background .25s}
+  .chip:hover{border-color:rgba(255,255,255,0.3);background:rgba(255,255,255,0.04)}
+  .chip img{width:15px;height:15px;display:block;flex:none;object-fit:contain}
+  .dom{display:inline-flex;align-items:center;justify-content:center;width:23px;height:23px;padding:4.5px;border-radius:7px;vertical-align:-6px;margin-right:7px}
+  .dom-web{color:#7cd0ff;background:rgba(50,140,220,.18);box-shadow:inset 0 0 0 1px rgba(124,208,255,.32);filter:drop-shadow(0 0 4px rgba(80,170,255,.35))}
+  .dom-ai{color:#c9b0ff;background:rgba(140,95,255,.18);box-shadow:inset 0 0 0 1px rgba(201,176,255,.32);filter:drop-shadow(0 0 4px rgba(160,110,255,.35))}
+  .dom-vid{color:#ff9ec6;background:rgba(255,70,140,.16);box-shadow:inset 0 0 0 1px rgba(255,158,198,.32);filter:drop-shadow(0 0 4px rgba(255,100,160,.3))}
+  .dom-auto{color:#8fe6a8;background:rgba(60,200,120,.16);box-shadow:inset 0 0 0 1px rgba(143,230,168,.32);filter:drop-shadow(0 0 4px rgba(90,220,140,.3))}
+  .dom-tool{color:rgba(255,205,155,.98);background:rgba(255,150,80,.14);box-shadow:inset 0 0 0 1px rgba(255,205,155,.3)}
+  .cat-ic{display:inline-block;width:15px;height:15px;vertical-align:-2px;margin-right:7px;color:rgba(255,205,155,0.98);filter:drop-shadow(0 0 3px rgba(255,120,60,.5))}
+  .spine{position:absolute;left:0;top:6px;bottom:6px;width:2px;background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.28),rgba(255,255,255,.05))}
+  .node{position:absolute;left:-5px;top:24px;width:12px;height:12px;border-radius:9999px;background:#fff;box-shadow:0 0 0 4px rgba(0,0,0,.6),0 0 14px 2px rgba(255,120,70,.55)}
+  .frame{opacity:0;transition:opacity .7s ease}.frame.on{opacity:1}
+  .cc-pulse{position:absolute;width:44px;height:44px;margin:-22px 0 0 -22px;border-radius:9999px;border:2px solid rgba(217,70,239,.85);pointer-events:none;opacity:0;animation:ccPulse 1.8s ease-out infinite}
+  @keyframes ccPulse{0%{transform:scale(.4);opacity:.9}70%{opacity:0}100%{transform:scale(1.7);opacity:0}}
+  .photo-glow::after{content:"";position:absolute;inset:-26%;border-radius:9999px;z-index:-1;background:radial-gradient(circle,rgba(255,120,60,.55),rgba(255,90,60,.18) 45%,transparent 72%);filter:blur(14px)}
+  @keyframes pulse{0%,100%{opacity:.4;transform:scale(.9)}50%{opacity:1;transform:scale(1.15)}}
+  .pulse{animation:pulse 2s ease-in-out infinite}
+  .row.is-active .row-title{color:#fff}.row.is-active .row-accent{transform:scaleY(1)}
+  #bgwrap>*{position:fixed;inset:0;width:100%;height:100%}
+  /* ===== card stack в Процессе ===== */
+  .stk{position:sticky;position:-webkit-sticky}
+  /* ===== journey map (карта маршрута) ===== */
+  #journey{position:fixed;right:22px;top:50%;transform:translateY(-50%);z-index:40;flex-direction:column;align-items:center}
+  #journey .jline{position:absolute;left:50%;top:8px;bottom:8px;width:2px;transform:translateX(-50%);background:rgba(255,255,255,.13);border-radius:2px;overflow:hidden}
+  #journey .jfill{position:absolute;left:0;top:0;width:100%;height:0%;background:linear-gradient(180deg,#ffc79b,#ff7a3c);box-shadow:0 0 8px rgba(255,130,70,.8)}
+  .jdot{position:relative;z-index:1;width:11px;height:11px;border-radius:9999px;background:rgba(20,16,14,.9);border:1.5px solid rgba(255,255,255,.4);margin:15px 0;cursor:pointer;transition:all .3s;padding:0}
+  .jdot.on{background:#ffb27d;border-color:#ffb27d;box-shadow:0 0 12px 2px rgba(255,140,80,.75);transform:scale(1.3)}
+  .jdot .jlab{position:absolute;right:24px;top:50%;transform:translateY(-50%);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.9);background:rgba(0,0,0,.55);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);padding:3px 10px;border-radius:9999px;white-space:nowrap;opacity:0;transition:opacity .25s;pointer-events:none}
+  .jdot:hover .jlab,.jdot.on .jlab{opacity:1}
+  /* ===== кастомный курсор ===== */
+  @media (hover:hover) and (pointer:fine){
+    body,a,button,.row{cursor:none}
+    #cur,#curR{display:block!important}
+  }
+  #cur{display:none;position:fixed;left:0;top:0;z-index:70;width:7px;height:7px;border-radius:9999px;background:#fff;pointer-events:none;transform:translate(-50%,-50%)}
+  #curR{display:none;position:fixed;left:0;top:0;z-index:70;width:34px;height:34px;border-radius:9999px;border:1.5px solid rgba(255,255,255,.55);pointer-events:none;transform:translate(-50%,-50%);transition:width .25s,height .25s,border-color .25s,background .25s}
+  #curR.big{width:58px;height:58px;border-color:rgba(255,170,110,.95);background:rgba(255,140,70,.08)}
+  /* ===== киноплёнка (grain) ===== */
+  #grain{position:fixed;inset:-120%;z-index:45;pointer-events:none;opacity:.055;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.7'/%3E%3C/svg%3E");animation:grain 7s steps(10) infinite}
+  @keyframes grain{0%,100%{transform:translate(0,0)}10%{transform:translate(-4%,-8%)}20%{transform:translate(-12%,4%)}30%{transform:translate(6%,-14%)}40%{transform:translate(-4%,14%)}50%{transform:translate(-12%,6%)}60%{transform:translate(12%,0)}70%{transform:translate(0,10%)}80%{transform:translate(-14%,0)}90%{transform:translate(8%,4%)}}
+  @media (prefers-reduced-motion: reduce){#grain{animation:none}}
+</style>
+</head>
+<body>
+
+<!-- ===== BG LAYERS (общие, кросс-фейд по скроллу) ===== -->
+<div id="bgwrap" class="z-0">
+  <video id="bg1" class="object-cover" autoplay muted loop playsinline preload="auto"><source src="gates.mp4" type="video/mp4"/></video>
+  <div id="bg2" style="background:#0a0a0a url('scene-bg.png') center top/cover no-repeat;opacity:0"></div>
+  <div id="bg3" style="background:#0a0a0a url('scene-bg-3.png') center top/cover no-repeat;opacity:0"></div>
+  <div id="bg4" style="background:#0a0a0a url('scene-bg-4.png') center/cover no-repeat;opacity:0"></div>
+  <div id="bg5" style="background:#0a0a0a url('scene-bg-5.png') center/cover no-repeat;opacity:0"></div>
+</div>
+<div id="bloom" class="fixed inset-0 z-[1] pointer-events-none" style="opacity:0;background:radial-gradient(60% 50% at 62% 45%, rgba(255,150,80,.55), rgba(255,110,60,.15) 45%, transparent 72%)"></div>
+<!-- универсальный scrim для читаемости -->
+<div class="fixed inset-0 z-[1] pointer-events-none" style="background:linear-gradient(90deg, rgba(0,0,0,0.42) 0%, rgba(0,0,0,0.12) 45%, transparent 66%), linear-gradient(180deg, rgba(0,0,0,0.38) 0%, rgba(0,0,0,0) 32%, rgba(0,0,0,0.48) 100%)"></div>
+
+<!-- warp-частицы для нырка 2→3 -->
+<div id="warp" class="fixed inset-0 z-30 pointer-events-none" style="opacity:0"></div>
+<!-- киноплёнка -->
+<div id="grain"></div>
+<!-- карта маршрута -->
+<nav id="journey" class="hidden md:flex" aria-label="Маршрут по странице">
+  <span class="jline"><span class="jfill" id="jfill"></span></span>
+  <button class="jdot" data-s="1"><span class="jlab">Старт</span></button>
+  <button class="jdot" data-s="2"><span class="jlab">Работы</span></button>
+  <button class="jdot" data-s="3"><span class="jlab">Процесс</span></button>
+  <button class="jdot" data-s="4"><span class="jlab">Опыт</span></button>
+  <button class="jdot" data-s="5"><span class="jlab">Контакт</span></button>
+</nav>
+<!-- кастомный курсор -->
+<div id="curR"></div><div id="cur"></div>
+
+<main class="relative z-10">
+
+<!-- ===== 1 · HERO ===== -->
+<section id="sec1" class="relative h-screen flex flex-col">
+  <nav class="flex items-center justify-between px-4 sm:px-6 md:px-12 py-4 md:py-6">
+    <div class="bfu flex items-center gap-2.5"><span class="inline-flex items-center justify-center w-9 h-9 md:w-10 md:h-10 rounded-full liquid-glass" style="box-shadow:inset 0 1px 1px rgba(255,255,255,.14), 0 0 16px -3px rgba(255,190,140,.35)"><svg viewBox="0 0 24 24" class="w-[21px] h-[21px]" style="filter:drop-shadow(0 1px 2px rgba(0,0,0,.65))"><defs><linearGradient id="mtlA" x1="0" y1="0" x2="0.6" y2="1"><stop offset="0" stop-color="#f5f6f8"/><stop offset=".45" stop-color="#b6bac2"/><stop offset=".8" stop-color="#6a6e78"/><stop offset="1" stop-color="#4c505a"/></linearGradient><linearGradient id="mtlB" x1="0" y1="0" x2="0.5" y2="1"><stop offset="0" stop-color="#dcdee3"/><stop offset=".55" stop-color="#8a8e98"/><stop offset="1" stop-color="#565a64"/></linearGradient></defs><g transform="rotate(180 12 12)"><path fill="url(#mtlA)" d="M13.5 3 L21 3 L13.5 21 L11.6 16.6 Z"/><path fill="url(#mtlB)" d="M3.5 3 L6.8 3 L12.4 19 L10.4 20.6 Z"/><path fill="url(#mtlB)" d="M2.56 3.33 L7.73 16.53 L6.93 16.81 L1.76 3.61 Z"/></g></svg></span><span class="text-lg md:text-xl font-semibold tracking-tight tsh">МАКСИМ ЛИСЕВСКИЙ</span></div>
+    <div class="hidden lg:flex items-center gap-8 text-sm tsh">
+      <a href="#sec2" class="hover:text-gray-300">Работы</a><a href="#sec3" class="hover:text-gray-300">Процесс</a><a href="#sec4" class="hover:text-gray-300">Опыт</a><a href="#sec4" class="hover:text-gray-300">Стек</a><a href="#sec5" class="hover:text-gray-300">Контакты</a>
+    </div>
+    <a href="mailto:mgromov688@gmail.com" class="bfu mag inline-flex items-center gap-2 rounded-full liquid-glass px-4 md:px-6 py-2 text-sm"><span>Написать</span><i data-lucide="mail" class="w-[18px] h-[18px]"></i></a>
+  </nav>
+  <div class="flex-1 flex flex-col justify-end px-4 sm:px-6 md:px-12 pb-10 md:pb-16">
+    <div class="bfu flex flex-wrap items-center gap-3 sm:gap-6 mb-6 text-xs sm:text-sm tsh" style="animation-delay:.3s">
+      <span class="flex items-center gap-1.5"><i data-lucide="star" class="w-4 h-4 fill-white"></i><span class="font-medium">AI-разработчик</span></span>
+      <span class="flex items-center gap-1.5"><i data-lucide="clock" class="w-4 h-4"></i>1–5 дней до продукта</span>
+      <span class="flex items-center gap-1.5"><i data-lucide="calendar" class="w-4 h-4"></i>Удалённо</span>
+    </div>
+    <h1 class="bfu text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-normal mb-4 tsh" style="letter-spacing:-.04em;animation-delay:.4s">Приносите задачу.<br/>Через пару дней — рабочий продукт.</h1>
+    <p class="bfu text-base sm:text-lg md:text-xl text-gray-300 mb-8 max-w-2xl tsh" style="animation-delay:.5s">Сайты, Telegram-боты, AI-системы, автоматизация. Делаю сам — от первого созвона до запуска.</p>
+    <div class="bfu flex flex-wrap gap-3 sm:gap-4" style="animation-delay:.6s">
+      <a href="#sec5" class="mag inline-flex items-center gap-2 bg-white text-black rounded-full font-medium px-6 sm:px-8 py-2.5 sm:py-3 hover:bg-gray-200 transition"><i data-lucide="message-circle" class="w-[18px] h-[18px]"></i> Обсудить задачу</a>
+      <a href="#sec2" class="mag rounded-full font-medium liquid-glass px-6 sm:px-8 py-2.5 sm:py-3">Смотреть работы</a>
+    </div>
+    <div class="mt-8 flex justify-center"><i data-lucide="chevrons-down" class="w-6 h-6 text-white/50 animate-bounce"></i></div>
+  </div>
+</section>
+
+<!-- ===== 2 · РАБОТЫ ===== -->
+<section id="sec2" class="relative min-h-screen flex items-center px-6 md:px-12 py-20">
+  <div class="dive w-full max-w-6xl mx-auto grid md:grid-cols-[0.92fr_1.08fr] gap-10 md:gap-16 items-center tsh">
+    <div>
+      <p class="rv text-white/55 text-sm font-medium tracking-[0.18em] uppercase mb-8">Избранные работы</p>
+      <div id="rows">
+        <a href="#" class="row rv group block cursor-default" data-i="0"><div class="relative py-5 border-t border-white/10"><span class="row-accent absolute left-0 top-0 bottom-0 w-[2px] bg-white origin-center scale-y-0 transition-transform duration-300"></span><div class="row-hl absolute inset-0 -mx-4 px-4 rounded-lg liquid-glass opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300"></div><div class="relative flex items-start justify-between gap-4 pl-4"><div class="flex-1 min-w-0"><div class="inline-flex items-center gap-2"><h3 class="row-title text-white/90 font-medium text-lg md:text-xl">Продуктовый лендинг</h3><i data-lucide="arrow-up-right" class="w-4 h-4 text-white/50 opacity-0 -translate-x-2 translate-y-2 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 transition-all duration-300"></i></div><p class="text-white/60 text-sm mt-1 group-hover:text-white/80 transition">Образовательный продукт — ручная адаптивная вёрстка, без конструктора.</p></div><span class="text-xs font-mono text-white/40">2026</span></div></div></a>
+        <a href="#" class="row rv group block cursor-default" data-i="1"><div class="relative py-5 border-t border-white/10"><span class="row-accent absolute left-0 top-0 bottom-0 w-[2px] bg-white origin-center scale-y-0 transition-transform duration-300"></span><div class="row-hl absolute inset-0 -mx-4 px-4 rounded-lg liquid-glass opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300"></div><div class="relative flex items-start justify-between gap-4 pl-4"><div class="flex-1 min-w-0"><div class="inline-flex items-center gap-2"><h3 class="row-title text-white/90 font-medium text-lg md:text-xl">Автосервис + калькулятор</h3><i data-lucide="arrow-up-right" class="w-4 h-4 text-white/50 opacity-0 -translate-x-2 translate-y-2 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 transition-all duration-300"></i></div><p class="text-white/60 text-sm mt-1 group-hover:text-white/80 transition">Лендинг с интерактивным расчётом стоимости услуг.</p></div><span class="text-xs font-mono text-white/40">2026</span></div></div></a>
+        <a href="#" class="row rv group block cursor-default" data-i="2"><div class="relative py-5 border-t border-white/10"><span class="row-accent absolute left-0 top-0 bottom-0 w-[2px] bg-white origin-center scale-y-0 transition-transform duration-300"></span><div class="row-hl absolute inset-0 -mx-4 px-4 rounded-lg liquid-glass opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300"></div><div class="relative flex items-start justify-between gap-4 pl-4"><div class="flex-1 min-w-0"><div class="inline-flex items-center gap-2"><h3 class="row-title text-white/90 font-medium text-lg md:text-xl">AI-система</h3><i data-lucide="arrow-up-right" class="w-4 h-4 text-white/50 opacity-0 -translate-x-2 translate-y-2 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 transition-all duration-300"></i></div><p class="text-white/60 text-sm mt-1 group-hover:text-white/80 transition">Автоматизация на связке AI-агентов под задачу клиента.</p></div><span class="text-xs font-mono text-white/40">2026</span></div></div></a>
+        <a href="#" class="row rv group block cursor-default" data-i="3"><div class="relative py-5 border-t border-white/10"><span class="row-accent absolute left-0 top-0 bottom-0 w-[2px] bg-white origin-center scale-y-0 transition-transform duration-300"></span><div class="row-hl absolute inset-0 -mx-4 px-4 rounded-lg liquid-glass opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300"></div><div class="relative flex items-start justify-between gap-4 pl-4"><div class="flex-1 min-w-0"><div class="inline-flex items-center gap-2"><h3 class="row-title text-white/90 font-medium text-lg md:text-xl">AI-видео / motion</h3><i data-lucide="arrow-up-right" class="w-4 h-4 text-white/50 opacity-0 -translate-x-2 translate-y-2 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 transition-all duration-300"></i></div><p class="text-white/60 text-sm mt-1 group-hover:text-white/80 transition">Генеративный ролик под бренд — от сценария до рендера.</p></div><span class="text-xs font-mono text-white/40">2026</span></div></div></a>
+        <a href="#" class="row rv group block cursor-default" data-i="4"><div class="relative py-5 border-t border-white/10"><span class="row-accent absolute left-0 top-0 bottom-0 w-[2px] bg-white origin-center scale-y-0 transition-transform duration-300"></span><div class="row-hl absolute inset-0 -mx-4 px-4 rounded-lg liquid-glass opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300"></div><div class="relative flex items-start justify-between gap-4 pl-4"><div class="flex-1 min-w-0"><div class="inline-flex items-center gap-2"><h3 class="row-title text-white/90 font-medium text-lg md:text-xl">Контент-система</h3><i data-lucide="arrow-up-right" class="w-4 h-4 text-white/50 opacity-0 -translate-x-2 translate-y-2 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 transition-all duration-300"></i></div><p class="text-white/60 text-sm mt-1 group-hover:text-white/80 transition">Архитектура и управление каналом через Claude Code; Metricool раздаёт контент в TG/YouTube/TikTok/Instagram; воронка ведёт обратно в Telegram — рост аудитории и монетизация.</p></div><span class="text-xs font-mono text-white/40">2026</span></div></div></a>
+        <div class="border-t border-white/10"></div>
+      </div>
+      <div class="rv mt-10 flex flex-wrap items-center gap-4">
+        <span class="text-xs font-mono uppercase tracking-[0.18em] text-white/45">Каналы Claude Codich</span>
+        <div class="flex items-center gap-2.5">
+          <a href="https://t.me/ClaudeCodich" target="_blank" rel="noopener" aria-label="Telegram" class="inline-flex items-center justify-center w-9 h-9 rounded-full text-white shadow-lg hover:scale-110 transition" style="background:linear-gradient(180deg,#2AABEE,#229ED9)"><svg viewBox="0 0 24 24" fill="currentColor" class="w-[18px] h-[18px]"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71l-4.14-3.05-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg></a>
+          <a href="https://www.instagram.com/claudecodich/" target="_blank" rel="noopener" aria-label="Instagram" class="inline-flex items-center justify-center w-9 h-9 rounded-full text-white shadow-lg hover:scale-110 transition" style="background:radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%)"><svg viewBox="0 0 24 24" fill="currentColor" class="w-[17px] h-[17px]"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.43.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23a3.7 3.7 0 0 1-.9 1.38 3.7 3.7 0 0 1-1.38.9c-.43.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.43-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.43-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63a5.5 5.5 0 0 0-2 1.3 5.5 5.5 0 0 0-1.3 2C.55 4.7.35 5.58.29 6.85.01 8.13 0 8.54 0 12s.01 3.87.07 5.15c.06 1.27.26 2.15.56 2.91a5.5 5.5 0 0 0 1.3 2 5.5 5.5 0 0 0 2 1.3c.76.3 1.64.5 2.91.56C8.13 23.99 8.54 24 12 24s3.87-.01 5.15-.07c1.27-.06 2.15-.26 2.91-.56a5.5 5.5 0 0 0 2-1.3 5.5 5.5 0 0 0 1.3-2c.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-5.15s-.01-3.87-.07-5.15c-.06-1.27-.26-2.15-.56-2.91a5.5 5.5 0 0 0-1.3-2 5.5 5.5 0 0 0-2-1.3c-.76-.3-1.64-.5-2.91-.56C15.87.01 15.46 0 12 0zm0 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zm0 10.16A4 4 0 1 1 16 12a4 4 0 0 1-4 4zm6.41-10.4a1.44 1.44 0 1 0 1.44 1.44 1.44 1.44 0 0 0-1.44-1.44z"/></svg></a>
+          <a href="https://www.youtube.com/@claudecodichAI" target="_blank" rel="noopener" aria-label="YouTube" class="inline-flex items-center justify-center w-9 h-9 rounded-full text-white shadow-lg hover:scale-110 transition" style="background:#FF0000"><svg viewBox="0 0 24 24" fill="currentColor" class="w-[19px] h-[19px]"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.5A3.02 3.02 0 0 0 .5 6.19 31.5 31.5 0 0 0 0 12a31.5 31.5 0 0 0 .5 5.81 3.02 3.02 0 0 0 2.12 2.14c1.88.5 9.38.5 9.38.5s7.5 0 9.38-.5a3.02 3.02 0 0 0 2.12-2.14A31.5 31.5 0 0 0 24 12a31.5 31.5 0 0 0-.5-5.81zM9.6 15.6V8.4l6.2 3.6z"/></svg></a>
+          <a href="https://www.tiktok.com/@claudecodich.ai" target="_blank" rel="noopener" aria-label="TikTok" class="inline-flex items-center justify-center w-9 h-9 rounded-full text-white shadow-lg ring-1 ring-white/25 hover:scale-110 transition" style="background:#010101"><svg viewBox="0 0 24 24" fill="currentColor" class="w-[16px] h-[16px]"><path d="M16.6 5.82a4.28 4.28 0 0 1-1.06-2.82h-3.2v12.9a2.34 2.34 0 0 1-2.34 2.26 2.34 2.34 0 0 1-2.34-2.34 2.34 2.34 0 0 1 3.06-2.23v-3.3a5.6 5.6 0 0 0-.72-.05A5.62 5.62 0 0 0 4.4 15.9a5.62 5.62 0 0 0 9.6 3.97 5.6 5.6 0 0 0 1.64-3.97V9.4a7.5 7.5 0 0 0 4.36 1.4V7.5a4.28 4.28 0 0 1-3.4-1.68z"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="rv">
+      <div class="rounded-xl overflow-hidden liquid-glass shadow-2xl">
+        <div class="flex items-center gap-1.5 border-b border-white/10 bg-black/60 px-3 py-2.5"><span class="h-2.5 w-2.5 rounded-full bg-white/15"></span><span class="h-2.5 w-2.5 rounded-full bg-white/15"></span><span class="h-2.5 w-2.5 rounded-full bg-white/15"></span><span id="screen-label" class="ml-3 truncate font-mono text-[10px] text-white/45">Продуктовый лендинг</span><span class="ml-auto flex items-center gap-1.5 font-mono text-[9px] uppercase text-white/40"><span class="h-1.5 w-1.5 rounded-full bg-white/70"></span> preview</span></div>
+        <div class="relative w-full bg-black" style="aspect-ratio:16/10">
+          <div class="media absolute inset-0 overflow-hidden transition-opacity duration-500" data-i="0" style="opacity:0"><div id="prodScroll" class="w-full h-full overflow-hidden bg-white"><img src="shots/product_tall.png" class="block w-full select-none" alt="Продуктовый лендинг образовательного продукта — прокрутка страницы: модули курса и маршрут обучения"/></div></div>
+          <div class="media cyc absolute inset-0 transition-opacity duration-500" data-i="1" data-int="1900" style="opacity:0"><img class="frame on absolute inset-0 w-full h-full object-cover" src="shots/auto_hero.png" alt="Лендинг автосервиса — главный экран"/><img class="frame absolute inset-0 w-full h-full object-cover" src="shots/auto_calc1.png" alt=""/><img class="frame absolute inset-0 w-full h-full object-cover" src="shots/auto_calc2.png" alt=""/><img class="frame absolute inset-0 w-full h-full object-cover" src="shots/auto_calc3.png" alt=""/><img class="frame absolute inset-0 w-full h-full object-cover" src="shots/auto_calc4.png" alt=""/><span class="cc-pulse" style="left:46%;top:60%"></span></div>
+          <img class="media absolute inset-0 w-full h-full object-cover transition-opacity duration-500" data-i="2" src="shots/case_ai.png" alt="AI-система — схема автоматизации на связке AI-агентов" style="opacity:0"/>
+          <video class="media absolute inset-0 w-full h-full object-cover transition-opacity duration-500" data-i="3" src="shots/irma.mp4" poster="shots/irma_poster.png" autoplay muted loop playsinline aria-label="AI-видео для бренда Ирма — генеративный рекламный ролик" style="opacity:0"></video>
+          <img class="media absolute inset-0 w-full h-full object-cover transition-opacity duration-500" data-i="4" src="shots/case_content.png" alt="Контент-система — канал, автопостинг через Metricool в соцсети и воронка в Telegram" style="opacity:0"/>
+          <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/25 to-transparent"></div>
+        </div>
+      </div>
+      <p class="mt-3 text-center font-mono text-[10px] uppercase tracking-wider text-white/30">Наведи или тапни кейс в списке</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 3 · ПРОЦЕСС ===== -->
+<section id="sec3" class="relative">
+  <div class="mx-auto max-w-3xl px-6 md:px-8 py-24 md:py-32">
+    <header class="rv mb-14 md:mb-20 tsh">
+      <p class="text-white/50 text-sm font-medium tracking-[0.18em] uppercase mb-4">Процесс</p>
+      <h2 class="kin text-3xl md:text-5xl font-semibold tracking-tight leading-[1.05]">Проектный цикл —<br/>от инициации до запуска</h2>
+      <p class="mt-5 max-w-xl text-white/65 text-base md:text-lg leading-relaxed">Один инженерный цикл на любую работу — сайт, AI-агент, видео, автоматизацию. Не «накодил», а веду проект по стандарту.</p>
+      <span class="mt-6 inline-flex items-center gap-2 rounded-full liquid-glass px-4 py-1.5 text-xs font-mono uppercase tracking-wider text-white/70"><i data-lucide="compass" class="w-4 h-4"></i> Project Management · PMBOK</span>
+      <div class="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-white/60">
+        <span class="inline-flex items-center gap-1.5"><i data-lucide="globe" class="w-4 h-4" style="color:#7cd0ff;filter:drop-shadow(0 0 4px rgba(80,170,255,.4))"></i> Сайты</span>
+        <span class="inline-flex items-center gap-1.5"><i data-lucide="bot" class="w-4 h-4" style="color:#c9b0ff;filter:drop-shadow(0 0 4px rgba(160,110,255,.4))"></i> AI-агенты</span>
+        <span class="inline-flex items-center gap-1.5"><i data-lucide="clapperboard" class="w-4 h-4" style="color:#ff9ec6;filter:drop-shadow(0 0 4px rgba(255,100,160,.35))"></i> Видео</span>
+        <span class="inline-flex items-center gap-1.5"><i data-lucide="workflow" class="w-4 h-4" style="color:#8fe6a8;filter:drop-shadow(0 0 4px rgba(90,220,140,.35))"></i> Автоматизация</span>
+      </div>
+    </header>
+    <div class="relative pl-8 md:pl-10">
+      <span class="spine"></span>
+      <p class="rv text-[11px] font-mono uppercase tracking-[0.2em] text-orange-300/90 mb-4 tsh">◆ Initiating</p>
+      <div class="rv stk mb-20"><span class="node"></span><div class="stage-card liquid-glass rounded-2xl p-5 md:p-6"><div class="flex items-start gap-4"><span class="shrink-0 font-mono text-white/35 text-lg">01</span><div class="flex-1 min-w-0"><div class="flex items-center gap-2 mb-1"><i data-lucide="flag" class="w-[18px] h-[18px] text-orange-300"></i><h3 class="text-lg md:text-xl font-medium">Инициация проекта</h3></div><p class="text-white/55 text-sm mb-3">Задача, цель, скоуп, критерий «готово».</p><div class="space-y-1.5"><div><i data-lucide="globe" class="dom dom-web"></i><span class="chip">бриф лендинга</span></div><div><i data-lucide="bot" class="dom dom-ai"></i><span class="chip">задача агента</span></div><div><i data-lucide="clapperboard" class="dom dom-vid"></i><span class="chip">идея ролика</span></div><div><i data-lucide="workflow" class="dom dom-auto"></i><span class="chip">что автоматизируем</span></div></div></div></div></div></div>
+      <p class="rv text-[11px] font-mono uppercase tracking-[0.2em] text-orange-300/90 mb-4 tsh">◆ Planning</p>
+      <div class="rv stk mb-20"><span class="node"></span><div class="stage-card liquid-glass rounded-2xl p-5 md:p-6"><div class="flex items-start gap-4"><span class="shrink-0 font-mono text-white/35 text-lg">02</span><div class="flex-1 min-w-0"><div class="flex items-center gap-2 mb-1"><i data-lucide="search" class="w-[18px] h-[18px] text-orange-300"></i><h3 class="text-lg md:text-xl font-medium">Сбор информации &amp; аналитика</h3></div><p class="text-white/55 text-sm mb-3">Вводные, исследование, данные, поведенческие факторы.</p><div class="space-y-1.5"><div><i data-lucide="globe" class="dom dom-web"></i><span class="chip">рынок / конкуренты</span></div><div><i data-lucide="bot" class="dom dom-ai"></i><span class="chip">источники данных</span></div><div><i data-lucide="clapperboard" class="dom dom-vid"></i><span class="chip">референсы</span></div><div><i data-lucide="workflow" class="dom dom-auto"></i><span class="chip">текущий процесс</span></div></div></div></div></div></div>
+      <div class="rv stk mb-20"><span class="node"></span><div class="stage-card liquid-glass rounded-2xl p-5 md:p-6"><div class="flex items-start gap-4"><span class="shrink-0 font-mono text-white/35 text-lg">03</span><div class="flex-1 min-w-0"><div class="flex items-center gap-2 mb-1"><i data-lucide="layout-dashboard" class="w-[18px] h-[18px] text-orange-300"></i><h3 class="text-lg md:text-xl font-medium">Архитектура</h3></div><p class="text-white/55 text-sm mb-3">Структура, логика, данные — чтобы изначально всё работало верно.</p><div class="space-y-1.5"><div><i data-lucide="globe" class="dom dom-web"></i><span class="chip">экраны / карта</span></div><div><i data-lucide="bot" class="dom dom-ai"></i><span class="chip">логика агентов</span></div><div><i data-lucide="clapperboard" class="dom dom-vid"></i><span class="chip">сценарий / раскадровка</span></div><div><i data-lucide="workflow" class="dom dom-auto"></i><span class="chip">схема потоков</span></div></div></div></div></div></div>
+      <div class="rv stk mb-20"><span class="node"></span><div class="stage-card liquid-glass rounded-2xl p-5 md:p-6"><div class="flex items-start gap-4"><span class="shrink-0 font-mono text-white/35 text-lg">04</span><div class="flex-1 min-w-0"><div class="flex items-center gap-2 mb-1"><i data-lucide="target" class="w-[18px] h-[18px] text-orange-300"></i><h3 class="text-lg md:text-xl font-medium">Маркетинговый слой</h3></div><p class="text-white/55 text-sm mb-3">Оффер, смыслы, путь пользователя, триггеры.</p><div class="space-y-1.5"><div><i data-lucide="globe" class="dom dom-web"></i><span class="chip">user journey</span> <span class="chip">триггеры</span></div><div><i data-lucide="bot" class="dom dom-ai"></i><span class="chip">ценность / метрики</span></div><div><i data-lucide="clapperboard" class="dom dom-vid"></i><span class="chip">хук / удержание</span></div><div><i data-lucide="workflow" class="dom dom-auto"></i><span class="chip">выгода / ROI</span></div></div></div></div></div></div>
+      <div class="rv stk mb-20"><span class="node"></span><div class="stage-card liquid-glass rounded-2xl p-5 md:p-6"><div class="flex items-start gap-4"><span class="shrink-0 font-mono text-white/35 text-lg">05</span><div class="flex-1 min-w-0"><div class="flex items-center gap-2 mb-1"><i data-lucide="list-checks" class="w-[18px] h-[18px] text-orange-300"></i><h3 class="text-lg md:text-xl font-medium">Инструменты &amp; план работ</h3></div><p class="text-white/55 text-sm mb-3">Стек, декомпозиция на этапы, визирование плана.</p><div><i data-lucide="wrench" class="dom dom-tool"></i><span class="chip">подбор инструментов</span> <span class="chip">этапы</span> <span class="chip">согласование плана</span></div></div></div></div></div>
+      <p class="rv text-[11px] font-mono uppercase tracking-[0.2em] text-orange-300/90 mb-4 tsh">◆ Executing</p>
+      <div class="rv stk mb-20"><span class="node"></span><div class="stage-card liquid-glass rounded-2xl p-5 md:p-6"><div class="flex items-start gap-4"><span class="shrink-0 font-mono text-white/35 text-lg">06</span><div class="flex-1 min-w-0"><div class="flex items-center gap-2 mb-1"><i data-lucide="hammer" class="w-[18px] h-[18px] text-orange-300"></i><h3 class="text-lg md:text-xl font-medium">Сборка (исполнение)</h3></div><p class="text-white/55 text-sm mb-3">Превращаю план в рабочее.</p><div class="space-y-1.5"><div><i data-lucide="globe" class="dom dom-web"></i><span class="chip">вёрстка / анимации</span></div><div><i data-lucide="bot" class="dom dom-ai"></i><span class="chip">код агентов / интеграции</span></div><div><i data-lucide="clapperboard" class="dom dom-vid"></i><span class="chip">генерация / монтаж</span></div><div><i data-lucide="workflow" class="dom dom-auto"></i><span class="chip">связки / сценарии</span></div></div></div></div></div></div>
+      <p class="rv text-[11px] font-mono uppercase tracking-[0.2em] text-orange-300/90 mb-4 tsh">◆ Monitoring &amp; Controlling</p>
+      <div class="rv stk mb-20"><span class="node"></span><div class="stage-card liquid-glass rounded-2xl p-5 md:p-6"><div class="flex items-start gap-4"><span class="shrink-0 font-mono text-white/35 text-lg">07</span><div class="flex-1 min-w-0"><div class="flex items-center gap-2 mb-1"><i data-lucide="gauge" class="w-[18px] h-[18px] text-orange-300"></i><h3 class="text-lg md:text-xl font-medium">Контроль &amp; проверка</h3></div><p class="text-white/55 text-sm mb-3">Меряю на живом: тесты, метрики, управление изменениями.</p><div class="space-y-1.5"><div><i data-lucide="globe" class="dom dom-web"></i><span class="chip">Lighthouse / axe</span> <span class="chip">кросс-браузер</span></div><div><i data-lucide="bot" class="dom dom-ai"></i><span class="chip">прогон сценариев</span></div><div><i data-lucide="clapperboard" class="dom dom-vid"></i><span class="chip">ревью / правки</span></div><div><i data-lucide="workflow" class="dom dom-auto"></i><span class="chip">проверка потоков</span></div></div></div></div></div></div>
+      <p class="rv text-[11px] font-mono uppercase tracking-[0.2em] text-orange-300/90 mb-4 tsh">◆ Closing</p>
+      <div class="rv stk mb-2"><span class="node"></span><div class="stage-card liquid-glass rounded-2xl p-5 md:p-6"><div class="flex items-start gap-4"><span class="shrink-0 font-mono text-white/35 text-lg">08</span><div class="flex-1 min-w-0"><div class="flex items-center gap-2 mb-1"><i data-lucide="rocket" class="w-[18px] h-[18px] text-orange-300"></i><h3 class="text-lg md:text-xl font-medium">Запуск &amp; закрытие</h3></div><p class="text-white/55 text-sm mb-3">Деплой, сдача, документация, ведение / ретро.</p><div class="space-y-1.5"><div><i data-lucide="globe" class="dom dom-web"></i><span class="chip">деплой / хендофф</span></div><div><i data-lucide="bot" class="dom dom-ai"></i><span class="chip">мониторинг / дообучение</span></div><div><i data-lucide="clapperboard" class="dom dom-vid"></i><span class="chip">сдача / форматы</span></div><div><i data-lucide="workflow" class="dom dom-auto"></i><span class="chip">поддержка / итерации</span></div></div></div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 4 · ОПЫТ / СТЕК ===== -->
+<section id="sec4" class="relative min-h-screen flex items-center px-6 md:px-8 py-24">
+  <div class="mx-auto max-w-6xl w-full">
+    <header class="rv mb-12 md:mb-16 max-w-3xl tsh">
+      <p class="text-white/50 text-sm font-medium tracking-[0.18em] uppercase mb-4">Опыт &amp; Стек</p>
+      <h2 class="kin text-3xl md:text-5xl font-semibold tracking-tight leading-[1.05]">Инженерная база.<br/>Маркетинговая насмотренность.</h2>
+      <p class="mt-5 text-white/65 text-base md:text-lg leading-relaxed">Собираю продукты под заявки и выручку — потому что раньше сам их продавал. И сам же кую их в живом коде.</p>
+    </header>
+    <div class="grid md:grid-cols-2 gap-8 md:gap-10 items-start" style="perspective:1200px">
+      <div class="rv-left">
+        <p class="text-[11px] font-mono uppercase tracking-[0.2em] text-orange-300/90 mb-5 tsh">◆ Опыт</p>
+        <div class="relative pl-8"><span class="spine"></span>
+          <div class="relative mb-6"><span class="node"></span><div class="card-u rounded-2xl p-5 md:p-6"><p class="font-mono text-xs uppercase tracking-wider text-orange-300/90 mb-2">2025 — сейчас</p><h3 class="text-xl font-medium mb-2">AI-разработчик</h3><p class="text-white/65 text-sm leading-relaxed">Боты, лендинги, автоматизация, контент. То, что в «Работах», — не учебные проекты, а сдано живым заказчикам. Каждый день в Claude Code и Cursor.</p></div></div>
+          <div class="relative"><span class="node"></span><div class="card-u rounded-2xl p-5 md:p-6"><p class="font-mono text-xs uppercase tracking-wider text-orange-300/90 mb-2">2024 — 2026</p><h3 class="text-xl font-medium mb-2">Продажи B2B/B2C · и.о. РОП</h3><p class="text-white/65 text-sm leading-relaxed">Сотни сделок и переговоров. Привык считать деньги клиента — поэтому и продукты собираю под заявки и выручку, а не под красивую картинку.</p></div></div>
+        </div>
+      </div>
+      <div class="rv-right">
+        <p class="text-[11px] font-mono uppercase tracking-[0.2em] text-orange-300/90 mb-5 tsh">◆ Стек</p>
+        <div class="card-u rounded-2xl p-5 md:p-6 divide-y divide-white/10">
+          <div class="pb-4"><div class="flex items-center mb-2.5"><i data-lucide="code-2" class="cat-ic"></i><span class="text-sm font-medium text-white/85">Код / вёрстка</span></div><div class="flex flex-wrap gap-2"><span class="chip"><img src="https://cdn.simpleicons.org/html5" alt="" onerror="this.remove()"/>HTML</span><span class="chip"><img src="https://cdn.simpleicons.org/css/1572B6" alt="" onerror="this.remove()"/>CSS</span><span class="chip"><img src="https://cdn.simpleicons.org/tailwindcss" alt="" onerror="this.remove()"/>Tailwind</span><span class="chip"><img src="https://cdn.simpleicons.org/javascript" alt="" onerror="this.remove()"/>JavaScript</span><span class="chip"><img src="https://cdn.simpleicons.org/python" alt="" onerror="this.remove()"/>Python</span></div></div>
+          <div class="py-4"><div class="flex items-center mb-2.5"><i data-lucide="bot" class="cat-ic"></i><span class="text-sm font-medium text-white/85">AI-инструменты</span></div><div class="flex flex-wrap gap-2"><span class="chip"><img src="https://cdn.simpleicons.org/claude" alt="" onerror="this.remove()"/>Claude Code</span><span class="chip"><img src="https://cdn.simpleicons.org/cursor/ffffff" alt="" onerror="this.remove()"/>Cursor</span><span class="chip"><img src="https://api.iconify.design/simple-icons/openai.svg?color=%23ffffff" alt="" onerror="this.remove()"/>ChatGPT</span></div></div>
+          <div class="py-4"><div class="flex items-center mb-2.5"><i data-lucide="wand-2" class="cat-ic"></i><span class="text-sm font-medium text-white/85">Фронт / анимация</span></div><div class="flex flex-wrap gap-2"><span class="chip"><img src="https://cdn.simpleicons.org/greensock" alt="" onerror="this.remove()"/>GSAP</span><span class="chip">Lenis</span><span class="chip">SplitText</span></div></div>
+          <div class="py-4"><div class="flex items-center mb-2.5"><i data-lucide="bot-message-square" class="cat-ic"></i><span class="text-sm font-medium text-white/85">Боты / интеграции</span></div><div class="flex flex-wrap gap-2"><span class="chip"><img src="https://cdn.simpleicons.org/telegram" alt="" onerror="this.remove()"/>Telegram Bot API</span><span class="chip"><img src="https://cdn.simpleicons.org/notion/ffffff" alt="" onerror="this.remove()"/>Notion API</span><span class="chip">Webhooks</span></div></div>
+          <div class="py-4"><div class="flex items-center mb-2.5"><i data-lucide="workflow" class="cat-ic"></i><span class="text-sm font-medium text-white/85">Автоматизация</span></div><div class="flex flex-wrap gap-2"><span class="chip"><img src="https://cdn.simpleicons.org/make" alt="" onerror="this.remove()"/>Make</span><span class="chip"><img src="https://cdn.simpleicons.org/n8n" alt="" onerror="this.remove()"/>n8n</span><span class="chip"><img src="https://cdn.simpleicons.org/zapier" alt="" onerror="this.remove()"/>Zapier</span><span class="chip"><img src="https://icons.duckduckgo.com/ip3/metricool.com.ico" alt="" onerror="this.remove()"/>Metricool</span></div></div>
+          <div class="py-4"><div class="flex items-center mb-2.5"><i data-lucide="clapperboard" class="cat-ic"></i><span class="text-sm font-medium text-white/85">Медиа</span></div><div class="flex flex-wrap gap-2"><span class="chip">Генеративное видео</span><span class="chip">Генеративные изображения</span></div></div>
+          <div class="pt-4"><div class="flex items-center mb-2.5"><i data-lucide="compass" class="cat-ic"></i><span class="text-sm font-medium text-white/85">Подход</span></div><div class="flex flex-wrap gap-2"><span class="chip">PMBOK</span><span class="chip">Живой код, без конструкторов</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 5 · КОНТАКТЫ / ОАЗИС ===== -->
+<section id="sec5" class="relative min-h-screen flex flex-col items-center justify-center text-center px-6 py-24">
+  <div class="rv-c photo-glow relative w-32 h-32 md:w-40 md:h-40 mb-8"><img src="photo.png" alt="Максим Лисевский" class="w-full h-full rounded-full object-cover object-top" style="box-shadow:0 0 0 1.5px rgba(255,255,255,0.18)"/></div>
+  <p class="rv-c text-white/50 text-sm font-medium tracking-[0.18em] uppercase mb-5 tsh">Контакты</p>
+  <h2 class="kin text-3xl sm:text-5xl md:text-6xl font-semibold tracking-tight leading-[1.05] max-w-3xl tsh">Давайте соберём то,<br/>что <span class="text-orange-400 italic">запустится</span>.</h2>
+  <p class="rv-c mt-6 max-w-xl text-white/85 text-base md:text-lg leading-relaxed rounded-2xl bg-black/35 backdrop-blur-md px-5 py-3.5 ring-1 ring-white/10">Беру удалённые проекты: разработка на AI, автоматизация, контент. Напишите, что нужно, — прикину сроки сразу.</p>
+  <div class="rv-c mt-9 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+    <a href="https://t.me/Maximpact888" target="_blank" rel="noopener" class="mag inline-flex items-center gap-2 bg-white text-black rounded-full font-medium px-7 py-3 hover:bg-gray-200 transition"><i data-lucide="send" class="w-[18px] h-[18px]"></i> Написать в Telegram</a>
+    <a href="mailto:mgromov688@gmail.com" class="mag inline-flex items-center gap-2 rounded-full liquid-glass font-medium px-7 py-3 hover:bg-white/[0.06] transition"><i data-lucide="mail" class="w-[18px] h-[18px]"></i> mgromov688@gmail.com</a>
+  </div>
+  <div class="rv-c mt-7 inline-flex items-center gap-2 text-sm text-white/60 tsh"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 pulse"></span> Отвечаю в течение часа</div>
+  <a href="https://t.me/Maximpact888" target="_blank" rel="noopener" class="rv-c mag mt-12 inline-flex items-center gap-2.5 rounded-full bg-black/45 backdrop-blur-md px-6 py-3 ring-1 ring-orange-400/25 shadow-[0_0_30px_-6px_rgba(255,120,60,0.5)] hover:ring-orange-400/50 transition"><i data-lucide="sparkles" class="w-[18px] h-[18px] text-orange-300"></i><span class="text-base md:text-lg font-medium text-white">Опишите задачу в двух строках — <span class="text-orange-300">пришлю план и сроки</span></span><i data-lucide="arrow-right" class="w-[18px] h-[18px] text-orange-300"></i></a>
+</section>
+
+</main>
+
+<script>
+  /* всегда открывать лендинг с самого верха (без восстановления скролла браузером) */
+  if('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  function pinTop(){
+    window.scrollTo(0,0);
+    if(window.lenis){ window.lenis.scrollTo(0,{immediate:true, force:true}); }
+    if(window.ScrollTrigger){ ScrollTrigger.update(); }
+  }
+  pinTop();
+  window.addEventListener('beforeunload', function(){ window.scrollTo(0,0); });
+  /* перезапуск интро-анимации героя (нужно при возврате из BFCache — CSS-анимации сами не replay-ятся) */
+  function replayIntro(){
+    document.querySelectorAll('.bfu').forEach(function(el){ el.style.animation='none'; void el.offsetWidth; el.style.animation=''; });
+  }
+  /* возврат в живую вкладку / из BFCache — с верха и с интро */
+  window.addEventListener('pageshow', function(e){ if(e.persisted){ pinTop(); replayIntro(); } });
+  window.addEventListener('load', pinTop);
+
+  lucide.createIcons();
+  gsap.registerPlugin(ScrollTrigger);
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* гарантированный запуск фонового видео (некоторые браузеры не автоплеят) */
+  (function(){
+    var v = document.getElementById('bg1');
+    if(!v) return;
+    function tryPlay(){ if(v.paused){ var p = v.play(); if(p && p.catch) p.catch(function(){}); } }
+    tryPlay();
+    window.addEventListener('load', tryPlay);
+    window.addEventListener('pageshow', tryPlay);
+    document.addEventListener('visibilitychange', function(){ if(!document.hidden) tryPlay(); });
+    ['pointerdown','wheel','touchstart','keydown','scroll'].forEach(function(ev){
+      window.addEventListener(ev, tryPlay, {passive:true});
+    });
+  })();
+
+  /* Lenis smooth scroll + sync */
+  if(!reduce){
+    var lenis = new Lenis({ lerp:0.09, smoothWheel:true });
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(function(t){ lenis.raf(t*1000); });
+    gsap.ticker.lagSmoothing(0);
+    document.querySelectorAll('a[href^="#sec"]').forEach(function(a){
+      a.addEventListener('click', function(e){ e.preventDefault(); lenis.scrollTo(a.getAttribute('href')); });
+    });
+  }
+
+  /* ===== BG-переходы ===== */
+  gsap.set(['#bg2','#bg3','#bg4','#bg5','#bloom'], {opacity:0});
+  // 1→2 dissolve
+  gsap.to('#bg2', {opacity:1, ease:'none', scrollTrigger:{trigger:'#sec2', start:'top bottom', end:'top top', scrub:true}});
+  // 2→3 ныряние сквозь облака (зум+блюр облаков, проявление спуска)
+  gsap.timeline({scrollTrigger:{trigger:'#sec3', start:'top bottom', end:'top top', scrub:true}})
+    .fromTo('#bg2', {scale:1, filter:'blur(0px)'}, {scale:3.1, filter:'blur(34px)', opacity:0, ease:'power2.in'}, 0)
+    .fromTo('#bg3', {opacity:0, scale:1.42}, {opacity:1, scale:1, ease:'power1.out'}, 0)
+    .fromTo('#sec2 .dive', {scale:1, opacity:1}, {scale:1.6, opacity:0, ease:'power2.in'}, 0);
+  // descent внутри процесса: облака(верх)→земля(низ)
+  gsap.fromTo('#bg3', {backgroundPositionY:'0%'}, {backgroundPositionY:'100%', ease:'none', scrollTrigger:{trigger:'#sec3', start:'top top', end:'bottom bottom', scrub:true}});
+  // 3→4 штора-вверх (земля поднимается)
+  gsap.timeline({scrollTrigger:{trigger:'#sec4', start:'top bottom', end:'top top', scrub:true}})
+    .fromTo('#bg4', {opacity:1, yPercent:100}, {yPercent:0, ease:'none', immediateRender:false}, 0)
+    .fromTo('#bg3', {opacity:1}, {opacity:0, ease:'none', immediateRender:false}, 0.5);
+  // 4→5 тёплый bloom + оазис
+  // 4→5: земля отъезжает назад (уменьшается + блюр), оазис раскрывается вокруг с приближения
+  gsap.timeline({scrollTrigger:{trigger:'#sec5', start:'top bottom', end:'top top', scrub:true}})
+    .fromTo('#bg4', {opacity:1, scale:1, filter:'blur(0px)'}, {scale:0.38, filter:'blur(18px)', opacity:0, ease:'power2.in', duration:1, immediateRender:false}, 0)
+    .fromTo('#bg5', {opacity:0, scale:1.6, filter:'blur(12px)'}, {opacity:1, scale:1, filter:'blur(0px)', ease:'power2.out', duration:1, immediateRender:false}, 0)
+    .fromTo('#bloom', {opacity:0}, {opacity:0.5, ease:'sine.inOut', duration:0.5, immediateRender:false}, 0).to('#bloom', {opacity:0, ease:'sine.inOut', duration:0.5}, 0.5);
+
+  /* ===== reveal контента ===== */
+  function rvIn(sel, vars){ gsap.utils.toArray(sel).forEach(function(el,i){
+    gsap.fromTo(el, vars.from, Object.assign({}, vars.to, {scrollTrigger:{trigger:el, start:'top 88%'}, delay:(i%6)*0.05}));
+  });}
+  if(!reduce){
+    rvIn('.rv', {from:{opacity:0,y:34,filter:'blur(14px)'}, to:{opacity:1,y:0,filter:'blur(0px)',duration:.8,ease:'power3.out'}});
+    rvIn('.rv-c', {from:{opacity:0,y:26}, to:{opacity:1,y:0,duration:.7,ease:'power2.out'}});
+    gsap.fromTo('.rv-left', {opacity:0,x:-70,rotateY:12}, {opacity:1,x:0,rotateY:0,duration:1,ease:'power3.out',scrollTrigger:{trigger:'#sec4', start:'top 70%'}});
+    gsap.fromTo('.rv-right',{opacity:0,x:70,rotateY:-12},{opacity:1,x:0,rotateY:0,duration:1,ease:'power3.out',scrollTrigger:{trigger:'#sec4', start:'top 70%'}});
+  }
+
+  /* ===== warp-частицы в нырке 2→3 ===== */
+  if(!reduce){
+    var warp = document.getElementById('warp');
+    for(var wi=0; wi<20; wi++){
+      var hold = document.createElement('div');
+      hold.style.cssText = 'position:absolute;left:50%;top:50%;transform:rotate('+(Math.random()*360).toFixed(1)+'deg)';
+      var st = document.createElement('div'); st.className = 'wstreak';
+      st.style.cssText = 'width:'+(70+Math.random()*110).toFixed(0)+'px;height:'+(1.4+Math.random()*1.8).toFixed(1)+'px;background:linear-gradient(90deg,transparent,rgba(255,228,205,.95));border-radius:3px;filter:blur(1px)';
+      hold.appendChild(st); warp.appendChild(hold);
+    }
+    gsap.timeline({scrollTrigger:{trigger:'#sec3', start:'top bottom', end:'top top', scrub:true}})
+      .fromTo('#warp', {opacity:0}, {opacity:1, duration:.4, ease:'none'}, 0.18)
+      .to('#warp', {opacity:0, duration:.3, ease:'none'}, 0.72)
+      .fromTo('.wstreak', {x:40, scaleX:0.25, opacity:0}, {x:980, scaleX:2.1, opacity:.95, stagger:0.01, ease:'power2.in', duration:.8}, 0.12);
+  }
+
+  /* ===== карта маршрута (journey map) ===== */
+  (function(){
+    var dots = [].slice.call(document.querySelectorAll('.jdot'));
+    dots.forEach(function(d){
+      d.addEventListener('click', function(){
+        var t = '#sec'+d.getAttribute('data-s');
+        if(typeof lenis!=='undefined' && lenis){ lenis.scrollTo(t); } else { document.querySelector(t).scrollIntoView({behavior:'smooth'}); }
+      });
+    });
+    ['#sec1','#sec2','#sec3','#sec4','#sec5'].forEach(function(s,i){
+      ScrollTrigger.create({trigger:s, start:'top center', end:'bottom center',
+        onToggle:function(st){ if(st.isActive){ dots.forEach(function(d,k){ d.classList.toggle('on', k===i); }); } }});
+    });
+    gsap.to('#jfill', {height:'100%', ease:'none', scrollTrigger:{trigger:document.body, start:'top top', end:'max', scrub:true}});
+  })();
+
+  /* ===== card stack: карточки процесса наслаиваются при скролле ===== */
+  (function(){
+    var cards = [].slice.call(document.querySelectorAll('#sec3 .stk'));
+    cards.forEach(function(c,i){ c.style.top = (92 + i*12) + 'px'; c.style.zIndex = String(i+1); });
+    if(!reduce){
+      cards.forEach(function(c,i){
+        if(i===0) return;
+        var inner = cards[i-1].querySelector('.stage-card');
+        gsap.to(cards[i-1], {scale:0.94, transformOrigin:'50% 0%', ease:'none',
+          scrollTrigger:{trigger:c, start:'top bottom', end:'top 200px', scrub:true}});
+        gsap.fromTo(inner, {filter:'brightness(1)'}, {filter:'brightness(0.45)', ease:'none', immediateRender:false,
+          scrollTrigger:{trigger:c, start:'top bottom', end:'top 200px', scrub:true}});
+      });
+    }
+  })();
+
+  /* ===== кинетические заголовки (SplitText) ===== */
+  if(!reduce && window.SplitText){
+    gsap.registerPlugin(SplitText);
+    document.fonts.ready.then(function(){
+      document.querySelectorAll('.kin').forEach(function(el){
+        var sp = new SplitText(el, {type:'words,chars'});
+        gsap.from(sp.chars, {yPercent:115, rotationX:-46, opacity:0, transformOrigin:'50% 100%',
+          stagger:{each:0.016, from:'start'}, duration:.85, ease:'power4.out',
+          scrollTrigger:{trigger:el, start:'top 85%'}});
+      });
+      ScrollTrigger.refresh();
+    });
+  }
+
+  /* ===== кастомный курсор + магнитные CTA ===== */
+  if(!reduce && window.matchMedia('(hover:hover) and (pointer:fine)').matches){
+    var cur=document.getElementById('cur'), curR=document.getElementById('curR');
+    /* спрятаны, пока мышь не шевельнётся — иначе кольцо торчит в углу (0,0) */
+    cur.style.opacity='0'; curR.style.opacity='0';
+    var cx=gsap.quickTo(cur,'left',{duration:.08,ease:'power2.out'}), cy=gsap.quickTo(cur,'top',{duration:.08,ease:'power2.out'});
+    var rx=gsap.quickTo(curR,'left',{duration:.28,ease:'power2.out'}), ry=gsap.quickTo(curR,'top',{duration:.28,ease:'power2.out'});
+    var curShown=false;
+    window.addEventListener('mousemove', function(e){
+      if(!curShown){ curShown=true; gsap.set([cur,curR],{left:e.clientX, top:e.clientY}); cur.style.opacity='1'; curR.style.opacity='1'; }
+      cx(e.clientX); cy(e.clientY); rx(e.clientX); ry(e.clientY);
+    });
+    [].forEach.call(document.querySelectorAll('a,button,.row,.jdot'), function(el){
+      el.addEventListener('mouseenter', function(){ curR.classList.add('big'); });
+      el.addEventListener('mouseleave', function(){ curR.classList.remove('big'); });
+    });
+    [].forEach.call(document.querySelectorAll('.mag'), function(b){
+      b.addEventListener('mousemove', function(e){
+        var r=b.getBoundingClientRect();
+        gsap.to(b, {x:(e.clientX-r.left-r.width/2)*0.28, y:(e.clientY-r.top-r.height/2)*0.38, duration:.4, ease:'power2.out'});
+      });
+      b.addEventListener('mouseleave', function(){ gsap.to(b, {x:0, y:0, duration:.65, ease:'elastic.out(1,0.45)'}); });
+    });
+  }
+
+  /* ===== интерактив «Работы» (экран + кейсы) ===== */
+  (function(){
+    var rows=[].slice.call(document.querySelectorAll('.row'));
+    var medias=[].slice.call(document.querySelectorAll('.media'));
+    var label=document.getElementById('screen-label');
+    var titles=['Продуктовый лендинг','Автосервис + калькулятор','AI-система','AI-видео / motion','Контент-система'];
+    var active=-1;
+    var prod=document.getElementById('prodScroll'); var pfRaf=null,pfPos=0,pfDir=1;
+    function pfStep(){ if(prod){ var max=prod.scrollHeight-prod.clientHeight; if(max>0){ pfPos+=pfDir*(max/(18*60)); if(pfPos>=max){pfPos=max;pfDir=-1;} else if(pfPos<=0){pfPos=0;pfDir=1;} prod.scrollTop=pfPos; } } pfRaf=requestAnimationFrame(pfStep); }
+    function startProd(){ if(prod&&!pfRaf) pfRaf=requestAnimationFrame(pfStep); } function stopProd(){ if(pfRaf){cancelAnimationFrame(pfRaf);pfRaf=null;} }
+    var cyclers={};
+    [].forEach.call(document.querySelectorAll('.media.cyc'), function(m){ cyclers[+m.getAttribute('data-i')]={frames:[].slice.call(m.querySelectorAll('.frame')),interval:+m.getAttribute('data-int')||2400,idx:0,timer:null}; });
+    function startCyc(k){ var c=cyclers[k]; if(!c||c.timer||c.frames.length<2)return; c.timer=setInterval(function(){ c.frames[c.idx].classList.remove('on'); c.idx=(c.idx+1)%c.frames.length; c.frames[c.idx].classList.add('on'); }, c.interval); }
+    function stopCyc(k){ var c=cyclers[k]; if(!c)return; if(c.timer){clearInterval(c.timer);c.timer=null;} c.idx=0; c.frames.forEach(function(f,i){f.classList.toggle('on',i===0);}); }
+    function setActive(i){ if(i===active)return; active=i;
+      medias.forEach(function(m){ var on=(+m.getAttribute('data-i'))===i; m.style.opacity=on?1:0; if(m.tagName==='VIDEO'){ on?m.play():m.pause(); } });
+      rows.forEach(function(r){ r.classList.toggle('is-active',(+r.getAttribute('data-i'))===i); });
+      if(label) label.textContent=titles[i]||'';
+      Object.keys(cyclers).forEach(function(k){ (+k===i)?startCyc(+k):stopCyc(+k); });
+      (i===0)?startProd():stopProd();
+    }
+    rows.forEach(function(r){ var i=+r.getAttribute('data-i'); r.addEventListener('mouseenter',function(){setActive(i);}); r.addEventListener('click',function(e){e.preventDefault(); setActive(i);}); });
+    setActive(0);
+  })();
+</script>
+</body>
+</html>
